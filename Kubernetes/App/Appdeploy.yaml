@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vproapp
+spec:
+  selector:
+    matchLabels:
+      app: vproapp
+  template:
+    metadata:
+      labels:
+        app: vproapp
+    spec:
+      containers:
+      - name: my-vpro-app
+        image: <Image>
+        resources:
+          limits:
+            memory: "8"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080

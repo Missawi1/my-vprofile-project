@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vpromem
+spec:
+  selector:
+    matchLabels:
+      app: vpromem
+  template:
+    metadata:
+      labels:
+        app: vpromem
+    spec:
+      containers:
+      - name: my-vpro-mem
+        image: <Image>
+        resources:
+          limits:
+            memory: "8"
+            cpu: "500m"
+        ports:
+        - containerPort: xxxx

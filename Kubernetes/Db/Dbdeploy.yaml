@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vprodb
+spec:
+  selector:
+    matchLabels:
+      app: vprodb
+  template:
+    metadata:
+      labels:
+        app: vprodb
+    spec:
+      containers:
+      - name: my-vpro-db
+        image: <Image>
+        resources:
+          limits:
+            memory: "8"
+            cpu: "500m"
+        ports:
+        - containerPort: 3306

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vpromq
+spec:
+  selector:
+    matchLabels:
+      app: vpromq
+  template:
+    metadata:
+      labels:
+        app: vpromq
+    spec:
+      containers:
+      - name: my-vpro-mq
+        image: <Image>
+        resources:
+          limits:
+            memory: "8"
+            cpu: "500m"
+        ports:
+        - containerPort: xxxx
