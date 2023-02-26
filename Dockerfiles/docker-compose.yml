@@ -1,17 +1,21 @@
 version: "3"
 services:
-  vproapp:
+  vproapp: missawi1/vproo-app:1.0
     image: 
     ports:
       -"8080:8080"
 
   vprodb:
-    image: 
+    image: missawi1/vpro-db:1.0
     ports:
       -"3306:3306"
+    volumes:
+      - vprodbdata:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin123
 
   vprongnix:
-    image:
+    image: missawi1/vpro-ngnix:1.0
     ports:
       - "80:80"
 
@@ -21,9 +25,11 @@ services:
       - "11211:11211"
 
   vpromq:
-    image: 
+    image: rabbitmq
     ports: 
       -"5672:5672"
     environment:
       - RABBITMQ_DEFAULT_USER=test
       - RABBITMQ_DEFAULT_PASS=test
+volumes:
+  vprodbdata: {}
