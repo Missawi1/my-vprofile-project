@@ -1,3 +1,5 @@
-FROM tomcat
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY nginvproapp.conf /etc/nginx/conf.d/vproapp.conf
+FROM ngnix
+LABEL Project="Vpro"
+LABEL Author="Awele Ajiduah"
+RUN rm -rf /etc/nginx/conf.d/default.conf
+COPY nginvproapp.conf /etc/nginx/conf.d/nginvproapp.conf
