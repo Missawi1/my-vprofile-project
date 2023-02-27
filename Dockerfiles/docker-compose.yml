@@ -1,9 +1,11 @@
 version: "3"
 services:
   vproapp: 
-    image: missawi1/vproo-app:1.0
+    image: missawi1/vpro-app:1.0
     ports:
       - "8080:8080"
+    volumes:
+      - vproappdata:/usr/local/tomcat/webapps
 
   vprodb:
     image: missawi1/vpro-db:1.0
@@ -33,3 +35,4 @@ services:
       - RABBITMQ_DEFAULT_PASS=test
 volumes:
   vprodbdata: {}
+  vproappdata: {}
