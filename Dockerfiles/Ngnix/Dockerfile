@@ -1,4 +1,4 @@
-FROM ngnix
+FROM nginx
 LABEL Project="Vpro"
 LABEL Author="Awele Ajiduah"
 RUN rm -rf /etc/nginx/conf.d/default.conf

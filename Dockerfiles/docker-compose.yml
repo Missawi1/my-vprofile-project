@@ -1,25 +1,20 @@
 version: "3"
 services:
-  vproapp: 
-    image: missawi1/vpro-app:1.0
-    ports:
-      - "8080:8080"
-    volumes:
-      - vproappdata:/usr/local/tomcat/webapps
-
   vprodb:
-    image: missawi1/vpro-db:1.0
+    image: missawi1/vprodb:1.0
     ports:
       - "3306:3306"
     volumes:
       - vprodbdata:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=admin123
-
-  vprongnix:
-    image: missawi1/vpro-ngnix:1.0
+      
+  vproapp: 
+    image: missawi1/vpro-app:1.0
     ports:
-      - "80:80"
+      - "8080:8080"
+    volumes:
+      - vproappdata:/usr/local/tomcat/webapps
 
   vpromem:
     image: memcached
@@ -33,6 +28,12 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=test
       - RABBITMQ_DEFAULT_PASS=test
+
+  vprongnix:
+    image: missawi1/vprongnix:1.0
+    ports:
+      - "80:80"
+
 volumes:
   vprodbdata: {}
   vproappdata: {}
