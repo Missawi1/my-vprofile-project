@@ -19,7 +19,7 @@ variable "public-key" {
 
 variable "key-pair-name" {
   type = string
-  default = terra-key-pair
+  default = "terra-key-pair"
 }
 
 resource "aws_key_pair" "terra-key" {
