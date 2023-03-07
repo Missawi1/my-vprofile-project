@@ -1,8 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vprodb
+  name: Db-deployment
+  labels:
+    app: vprodb
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: vprodb
@@ -12,11 +15,11 @@ spec:
         app: vprodb
     spec:
       containers:
-      - name: my-vpro-db
-        image: <Image>
-        resources:
-          limits:
-            memory: "8"
-            cpu: "500m"
+      - name: vprodb
+        image: missawi1/vprodb:1.0
         ports:
-        - containerPort: 3306
+        - name: vprodb-port
+          containerPort: 3306
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: "admin123"

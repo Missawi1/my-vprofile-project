@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: vpromem
+  labels:
+    app: vpromem
+spec:
+  containers:
+  - name: vpromem
+    image: memcached
+    ports:
+    - name: vpromem-port
+      containerPort: 11211

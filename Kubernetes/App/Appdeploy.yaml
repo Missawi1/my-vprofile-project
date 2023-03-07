@@ -1,8 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vproapp
+  name: vproapp-deployment
+  labels:
+    app: vproapp
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: vproapp
@@ -12,11 +15,8 @@ spec:
         app: vproapp
     spec:
       containers:
-      - name: my-vpro-app
-        image: <Image>
-        resources:
-          limits:
-            memory: "8"
-            cpu: "500m"
+      - name: vproapp
+        image: missawi1/vpro-app:1.0
         ports:
-        - containerPort: 8080
+        - name: vproapp-port
+          containerPort: 8080
