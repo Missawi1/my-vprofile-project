@@ -1,0 +1,25 @@
+name: first-ci/cd
+on:
+  pull_request:
+    branches:
+      - master
+      - terraform
+      - kubernetes
+
+jobs:
+  build-job:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build with maven
+        run: mvn -B package --file pom.xml
+      - name: Remove default app from tomcat
+        run: rm /usr/local/tomcat/webapps/*
+      - name: copy artifact into app folder
+        run: cp target/vprofile.war /usr/local/tomcat/webapps/ROOT.war
