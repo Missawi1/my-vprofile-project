@@ -2,10 +2,10 @@ pipeline{
     agent any
     tools {
         maven "MAVEN"
-        jdk "JDK8"
+        JDK "JDK8"
     }
     environment {
-        
+
     }
     stages{
         stage("Fetch Code"){
@@ -24,19 +24,70 @@ pipeline{
                 }
             }
         }
-        stage("A"){
+        stage("Build"){
             steps{
-                echo "====++++executing A++++===="
+                sh 'mvn install -Dskiptest'
             }
             post{
                 always{
-                    echo "====++++always++++===="
+                    echo "Now archiving..."
                 }
                 success{
-                    echo "====++++A executed successfully++++===="
+                    echo "...Archiving...."
+                    archiveArtifacts artifacts: "**/target/*.war"
                 }
                 failure{
-                    echo "====++++A execution failed++++===="
+                    echo "Archiving failed"
+                }
+            }
+        }
+        stage("Unit test"){
+            steps{
+                sh "mvn clean test"
+            }
+            post{
+                always{
+                    echo "Unit test has started running..."
+                }
+                success{
+                    echo "Unit test passed..."
+                }
+                failure{
+                    echo "Unit test failed..."
+                }
+            }
+        }
+        stage("Checkstyle"){
+            steps{
+                sh "mvn checkstyle:checkstyle" 
+            }
+            post{
+                always{
+                    echo "Checkstyle started..."
+                }
+                success{
+                    echo "====++++Checkstyle executed successfully++++===="
+                }
+                failure{
+                    echo "====++++Checkstyle execution failed++++===="
+                }
+            }
+        }
+        stage("Quality Test"){
+            steps{
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+            post{
+                always{
+                    echo "====++++Quality test started++++===="
+                }
+                success{
+                    echo "====++++Quality Test executed successfully++++===="
+                }
+                failure{
+                    echo "====++++Quality Test execution failed++++===="
                 }
         
             }
