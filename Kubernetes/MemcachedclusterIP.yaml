@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vpromem
+spec:
+  selector:
+    app: vpromem
+  type: ClusterIP
+  ports:
+  - port: 11211
+    targetPort: vpromem-port
+    protocol: TCP
